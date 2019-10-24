@@ -149,7 +149,9 @@ DaoCloud 加速器：http://guide.daocloud.io/dcs/daocloud-9153151.html
 腾讯云加速器：https://www.qcloud.com/document/product/457/7207
 
 ## 更新日志
-
+### V3.4（2019-10-24）
+* 安装xdebug for debug
+* 安装zip for PHPExcel
 ### V3.3（2019-07-13）
 
 * 升级了 mysql 版本到 7.3

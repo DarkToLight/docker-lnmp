@@ -26,6 +26,9 @@ services:
         args:
           TIME_ZONE: ${GLOBAL_TIME_ZONE}
           CHANGE_SOURCE: ${GLOBAL_CHANGE_SOURCE}
+      ports:
+        - "40080:40080"
+      # command: php /etc/nginx/html/public/server.php start
       volumes:
         - ${PROJECT_FOLDER}:/etc/nginx/html:rw
         - ./work/components/php/config/php.ini:/usr/local/etc/php/php.ini:ro
@@ -68,26 +71,6 @@ services:
       privileged: true
       networks:
         - net-redis
-
-  ### Tools container #########################################
-
-  tools:
-      build:
-        context: ./build/tools
-        args:
-          TIME_ZONE: ${GLOBAL_TIME_ZONE}
-          CHANGE_SOURCE: ${GLOBAL_CHANGE_SOURCE}
-      volumes:
-        - ./work/components/tools/start.sh:/home/start.sh:rw
-        - ./work/components/tools/backup:/backup:rw
-        - ./work/components/tools/cron.d:/etc/cron.d:rw
-      restart: always
-      privileged: true
-      networks:
-        - net-php
-        - net-mysql
-        - net-redis
-
 networks:
   net-php:
   net-mysql:

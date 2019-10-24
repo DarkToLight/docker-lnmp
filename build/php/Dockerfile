@@ -48,7 +48,7 @@ RUN \
 RUN docker-php-ext-configure gd \
     --with-freetype-dir=/usr/include/ \
     --with-jpeg-dir=/usr/include/ ; \
-    docker-php-ext-install -j$(nproc) gd pdo_mysql mysqli pgsql pdo_pgsql soap pcntl ; \
+    docker-php-ext-install -j$(nproc) gd pdo_mysql mysqli pgsql pdo_pgsql soap pcntl zip;\
     \
     # ⬇ Imagick
     pecl install imagick && docker-php-ext-enable imagick; \
@@ -56,6 +56,9 @@ RUN docker-php-ext-configure gd \
     # ⬇ Redis
     pecl install /home/resource/redis-4.2.0.tgz ; \ 
     echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini ; \
+    \
+     pecl install xdebug ;\
+     echo "[Xdebug]\nzend_extension =\"/usr/local/lib/php/extensions/no-debug-non-zts-20170718/xdebug.so\"\nxdebug.profiler_enable=on\nxdebug.trace_output_dir=\"/usr/local/php/xdebug/\"\nxdebug.profiler_output_dir=\"/usr/local/php/xdebug/\"\nxdebug.remote_enable=on\nxdebug.remote_handler=dbgp\nxdebug.remote_host=10.20.1.80\nxdebug.remote_port=9001" > /usr/local/etc/php/conf.d/xdebug.ini ;\
     \
     # ⬇ Swoole
     pecl install /home/resource/swoole-4.2.12.tgz ; \
